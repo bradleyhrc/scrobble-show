@@ -5,13 +5,17 @@ import { BsCloudUpload } from "react-icons/bs";
 import { LuLogOut } from "react-icons/lu";
 import StyledInput from './StyledInput';
 
+import VideoPlayer from '../VideoPlayer';
+
 
 interface MainProps {
   setIsAuth: any;
 };
 
 const Main: React.FC<MainProps> = ({ setIsAuth }) => {
-  const [query, setQuery] = useState("");
+  const [prompt, setPrompt] = useState("");
+  const [video, setVideo] = useState(null);
+  const [startTime, setStartTime] = useState(0);
 
   const handleUpload = (video: any) => {
     if (!video) return;
@@ -33,7 +37,24 @@ const Main: React.FC<MainProps> = ({ setIsAuth }) => {
   };
 
   const handlePromptChange = (event: any) => {
-    setQuery(event.target.value);
+    setPrompt(event.target.value);
+  };
+
+  const getMatch = () => {
+    fetch(`http://127.0.0.1:5000/api/match?prompt=${prompt}`, {
+      method: 'GET'
+    })
+    .then(response => response.json())
+    .then(data => {
+      setVideo(data["File_Path"]);
+      setStartTime(data["Start_Time"]);
+      function settime() {
+        var video = document.getElementById("video1") as HTMLVideoElement | null;
+        if (video) video.currentTime = data["Start_Time"];
+      }
+      settime();
+    })
+    .catch(error => console.error("Error getting match:", error));
   };
 
   return (
@@ -56,9 +77,14 @@ const Main: React.FC<MainProps> = ({ setIsAuth }) => {
         <input id="file-upload" type="file" accept='.mp4' style={{ display: 'none' }} onChange={handleFileChange} />
         <Body>
           <QuerySec>
-            <StyledInput style={{ width: "92%" }} type="text" value={query} onChange={handlePromptChange} placeholder="Search your videos..." />
-            <SubmitButton>Search</SubmitButton>
+            <StyledInput style={{ width: "92%" }} type="text" value={prompt} onChange={handlePromptChange} placeholder="Search your videos..." />
+            <SubmitButton onClick={getMatch} >Search</SubmitButton>
           </QuerySec>
+          <VideoSection>
+            {video && (
+              <VideoPlayer key={video} file_path={video} start_time={startTime} />
+            )}
+          </VideoSection>
         </Body>
       </FillBox>
     </AppWrap>
@@ -66,6 +92,11 @@ const Main: React.FC<MainProps> = ({ setIsAuth }) => {
 };
 
 export default Main;
+
+const VideoSection = styled.div`
+  width: 70%;
+  padding: 24px;
+`;
 
 const SubmitButton = styled.div`
   width: 90px;

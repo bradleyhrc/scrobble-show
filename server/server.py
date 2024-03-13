@@ -48,23 +48,23 @@ def upload_file():
 @app.route('/api/match', methods=['GET'])
 def find_match():
   prompt = request.args.get('prompt', '')
-
   if not prompt:
     return jsonify(error="No prompt provided"), 400
 
   df = pd.read_csv("videos_data.csv")
+  df["Transcript"] = df["Transcript"].fillna('')
+  df["Video_Labels"] = df["Video_Labels"].fillna('')
 
   df["combined"] = df["Transcript"] + " " + df["Video_Labels"]
 
   vectorizer = TfidfVectorizer()
+  
   tfidf_matrix = vectorizer.fit_transform(df["combined"])
 
   prompt_vector = vectorizer.transform([prompt])
-  print(prompt_vector)
   cosine_similarities = cosine_similarity(prompt_vector, tfidf_matrix).flatten()
   closest_index = cosine_similarities.argmax()
   print(cosine_similarities)
-
   closest_data = df.iloc[closest_index].to_dict()
   return jsonify(closest_data)
 

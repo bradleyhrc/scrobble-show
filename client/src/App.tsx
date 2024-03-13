@@ -43,24 +43,6 @@ function App() {
     .catch(error => console.error("Error uploading file:", error));
   };
 
-  const getMatch = () => {
-    fetch(`http://127.0.0.1:5000/api/match?prompt=${prompt}`, {
-        method: 'GET'
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setVideo(data["File_Path"]);
-      setStartTime(data["Start_Time"]);
-      function settime() {
-        var video = document.getElementById("video1") as HTMLVideoElement | null;
-        if (video) video.currentTime = data["Start_Time"];
-      }
-      settime();
-    })
-    .catch(error => console.error("Error getting match:", error));
-  };
-
   if (!isAuth) {
     return (
       <AppWrap>
