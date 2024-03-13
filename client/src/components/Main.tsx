@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { BsCloudUpload } from "react-icons/bs";
 import { LuLogOut } from "react-icons/lu";
+import StyledInput from './StyledInput';
 
 
 interface MainProps {
@@ -10,6 +11,8 @@ interface MainProps {
 };
 
 const Main: React.FC<MainProps> = ({ setIsAuth }) => {
+  const [query, setQuery] = useState("");
+
   const handleUpload = (video: any) => {
     if (!video) return;
 
@@ -27,6 +30,10 @@ const Main: React.FC<MainProps> = ({ setIsAuth }) => {
 
   const handleFileChange = (event: any) => {
     handleUpload(event.target.files[0]);
+  };
+
+  const handlePromptChange = (event: any) => {
+    setQuery(event.target.value);
   };
 
   return (
@@ -47,12 +54,67 @@ const Main: React.FC<MainProps> = ({ setIsAuth }) => {
           </LogOut>
         </NavBar>
         <input id="file-upload" type="file" accept='.mp4' style={{ display: 'none' }} onChange={handleFileChange} />
+        <Body>
+          <QuerySec>
+            <StyledInput style={{ width: "92%" }} type="text" value={query} onChange={handlePromptChange} placeholder="Search your videos..." />
+            <SubmitButton>Search</SubmitButton>
+          </QuerySec>
+        </Body>
       </FillBox>
     </AppWrap>
   );
 };
 
 export default Main;
+
+const SubmitButton = styled.div`
+  width: 90px;
+
+  background-color: #52796F; 
+  color: #f9f9f9; 
+  padding: 10px 12px;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 rgba(82,121,111, 0.5);
+  outline: none;
+
+  &:hover {
+    background-color: #52796F; 
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82,121,111, 0.72);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    background-color: #A9A9A9;
+    cursor: not-allowed;
+  }
+`;
+
+const QuerySec = styled.div`
+  width: 500px;
+  margin-top: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: space-between;
+  gap: 2em;
+`;
+
+const Body = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+`;
 
 const LeftBar = styled.div`
   background-color: #52796F;
@@ -71,10 +133,6 @@ const AppWrap = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-`;
-
-const Logo = styled.img`
-  padding: 30px;
 `;
 
 const NewLogo = styled.h3`
