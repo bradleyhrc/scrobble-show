@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import VideoPlayer from './VideoPlayer';
 import Auth from './components/Auth';
+import Main from './components/Main';
 import scrub from "./img/scrub.png";
 
 function App() {
@@ -65,14 +66,12 @@ function App() {
       <AppWrap>
         <Auth setIsAuth={setIsAuth} />
         <Rest>
-          <img src={scrub} style={{ width: "100%" }} />
+          <img src={scrub} style={{ width: "100%" }} alt="Scrobbleshow" />
         </Rest>
       </AppWrap>
     );
   };
-  return (
-    <></>
-  );
+  return <Main />;
 }
 
 export default App;
