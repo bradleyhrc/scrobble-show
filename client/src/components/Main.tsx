@@ -133,6 +133,8 @@ const QuerySec = styled.div`
   width: 500px;
   margin-top: 10px;
   padding: 12px;
+  padding-left: 24px;
+  padding-bottom: 0;
   display: flex;
   flex-direction: row;
   align-items: space-between;

@@ -55,7 +55,7 @@ def analyze_fragment(fragment):
   os.remove(video_temp_path)
 
   segment_labels = result.annotation_results[0].segment_label_annotations
-  #print(segment_labels)
+  
   labels = []
   for annotation in segment_labels:
     for segment in annotation.segments:

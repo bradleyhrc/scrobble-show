@@ -41,6 +41,7 @@ def upload_file():
     file.save(filepath)
     # Proceed with analysis
     process_video_for_analysis(filepath)
+    print("Precomputing complete!")
     return jsonify(success=True, filepath=filepath)
   else:
     return jsonify(success=False, message="File type not allowed"), 400
@@ -64,7 +65,6 @@ def find_match():
   prompt_vector = vectorizer.transform([prompt])
   cosine_similarities = cosine_similarity(prompt_vector, tfidf_matrix).flatten()
   closest_index = cosine_similarities.argmax()
-  print(cosine_similarities)
   closest_data = df.iloc[closest_index].to_dict()
   return jsonify(closest_data)
 

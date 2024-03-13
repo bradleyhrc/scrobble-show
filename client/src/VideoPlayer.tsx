@@ -30,7 +30,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ file_path, start_time }) => {
   const videoURL = `http://127.0.0.1:5000/api/stream_video?file_path=${file_path}&timestamp=${Date.now()}`;
 
   return (
-    <video id="video1" ref={videoRef} controls autoPlay>
+    <video style={{ borderRadius: 12, height: "100%", width: "100%" }} id="video1" ref={videoRef} controls autoPlay>
       <source src={videoURL} type="video/mp4" />
       Your browser does not support video.
     </video>
