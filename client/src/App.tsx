@@ -71,7 +71,7 @@ function App() {
       </AppWrap>
     );
   };
-  return <Main />;
+  return <Main setIsAuth={setIsAuth} />;
 }
 
 export default App;
@@ -79,25 +79,6 @@ export default App;
 const Rest = styled.div`
   width: 60%;
   height: 100%;
-`;
-
-const Upload = styled.div`
-  padding-top: 16px;
-  height: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: right;
-  justify-content: right;
-`;
-
-const SearchContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  justify-content: center;
-  
-  gap: 16px;
-  height: 42px;
 `;
 
 const AppWrap = styled.div`
