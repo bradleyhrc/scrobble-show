@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import { BsCloudUpload } from "react-icons/bs";
 import { LuLogOut } from "react-icons/lu";
 import StyledInput from './StyledInput';
+import { RiGalleryFill } from "react-icons/ri";
 
 import VideoPlayer from '../VideoPlayer';
-
+import DwarfCat from '../img/dwarfcat.png';
 
 interface MainProps {
   setIsAuth: any;
@@ -64,6 +65,9 @@ const Main: React.FC<MainProps> = ({ setIsAuth }) => {
         <Icon htmlFor="file-upload">
           <BsCloudUpload style={{ width: "60%", height: "60%" }} color='white' />
         </Icon>
+        <Icon>
+          <RiGalleryFill style={{ width: "60%", height: "60%"}} color="white" />
+        </Icon>
       </LeftBar>
       <FillBox>
         <NavBar>
@@ -74,18 +78,34 @@ const Main: React.FC<MainProps> = ({ setIsAuth }) => {
             <LuLogOut style={{ width: "60%", height: "60%" }} color='#2F3E46' onClick={() => setIsAuth(false)} />
           </LogOut>
         </NavBar>
-        <input id="file-upload" type="file" accept='.mp4' style={{ display: 'none' }} onChange={handleFileChange} />
-        <Body>
-          <QuerySec>
-            <StyledInput style={{ width: "92%" }} type="text" value={prompt} onChange={handlePromptChange} placeholder="Search your videos..." />
-            <SubmitButton onClick={getMatch} >Search</SubmitButton>
-          </QuerySec>
-          <VideoSection>
-            {video && (
-              <VideoPlayer key={video} file_path={video} start_time={startTime} />
-            )}
-          </VideoSection>
-        </Body>
+        <Row>
+          <Divider>
+            <input id="file-upload" type="file" accept='.mp4' style={{ display: 'none' }} onChange={handleFileChange} />
+            <Body>
+              <QuerySec>
+                <StyledInput style={{ width: "92%" }} type="text" value={prompt} onChange={handlePromptChange} placeholder="Search your videos..." />
+                <SubmitButton onClick={getMatch} >Search</SubmitButton>
+              </QuerySec>
+              <VideoSection>
+                {video && (
+                  <VideoPlayer key={video} file_path={video} start_time={startTime} />
+                )}
+                <VideoTitle>Demo!</VideoTitle>
+                <VideoData>Mar 13, 2024</VideoData>
+              </VideoSection>
+            </Body>
+          </Divider>
+          <RightSide>
+            <MoreResults>
+              More results...
+            </MoreResults>
+            <img src={DwarfCat} alt="dwarf-cat-core" />
+            <img src={DwarfCat} alt="dwarf-cat-core" />
+            <img src={DwarfCat} alt="dwarf-cat-core" />
+            <img src={DwarfCat} alt="dwarf-cat-core" />
+            <img src={DwarfCat} alt="dwarf-cat-core" />
+          </RightSide>
+        </Row>
       </FillBox>
     </AppWrap>
   );
@@ -93,8 +113,51 @@ const Main: React.FC<MainProps> = ({ setIsAuth }) => {
 
 export default Main;
 
+const MoreResults = styled.div`
+  padding: 12px;
+  padding-top: 36px;
+  text-align: left;
+  padding-left: 24px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #2F3E46;
+`;
+
+const RightSide = styled.div`
+  width: 25%;
+  height: 100%;
+`
+
+const Divider = styled.div`
+  width: 68%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: left;
+`;
+
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: space-between;
+  height: 100%;
+  width: 100%;
+`;
+
+const VideoTitle = styled.div`
+  font-weight: 500;
+  padding: 4px;
+  color: #2F3E46;
+`;
+
+const VideoData = styled.div`
+  font-size: 14px;
+  color: #2F3E46;
+`;
+
 const VideoSection = styled.div`
-  width: 70%;
+  width: 92%;
   padding: 24px;
 `;
 
