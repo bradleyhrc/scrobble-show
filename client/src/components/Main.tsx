@@ -90,20 +90,43 @@ const Main: React.FC<MainProps> = ({ setIsAuth }) => {
                 {video && (
                   <VideoPlayer key={video} file_path={video} start_time={startTime} />
                 )}
-                <VideoTitle>Demo!</VideoTitle>
-                <VideoData>Mar 13, 2024</VideoData>
+                {
+                  video && (
+                    <VideoTitle>Demo!</VideoTitle>
+                  )
+                }
+                {
+                  video && (
+                    <VideoData>Mar 13, 2024</VideoData>
+                  )
+                }
               </VideoSection>
             </Body>
           </Divider>
           <RightSide>
             <MoreResults>
-              More results...
+              More Results...
             </MoreResults>
-            <img src={DwarfCat} alt="dwarf-cat-core" />
-            <img src={DwarfCat} alt="dwarf-cat-core" />
-            <img src={DwarfCat} alt="dwarf-cat-core" />
-            <img src={DwarfCat} alt="dwarf-cat-core" />
-            <img src={DwarfCat} alt="dwarf-cat-core" />
+            {
+              video && (
+                <img src={DwarfCat} style={{ width: "370px"}} alt="dwarf-cat-core" />
+              )
+            }
+            {
+              video && (
+                <img src={DwarfCat} style={{ width: "370px"}} alt="dwarf-cat-core" />
+              )
+            }
+            {
+              video && (
+                <img src={DwarfCat} style={{ width: "370px"}} alt="dwarf-cat-core" />
+              )
+            }
+            {
+              video && (
+                <img src={DwarfCat} style={{ width: "370px"}} alt="dwarf-cat-core" />
+              )
+            }
           </RightSide>
         </Row>
       </FillBox>
